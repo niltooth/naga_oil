@@ -25,7 +25,6 @@ mod test {
             )
         };
     }
-
     #[test]
     fn simple_compose() {
         let mut composer = Composer::default();
@@ -59,6 +58,39 @@ mod test {
         // drop(f);
 
         output_eq!(wgsl, "tests/expected/simple_compose.txt");
+    }
+
+    #[test]
+    fn mesh_shader_compose() {
+        let mut composer = Composer::default().with_capabilities(Capabilities::MESH_SHADER);
+
+        let module = composer
+            .make_naga_module(NagaModuleDescriptor {
+                source: include_str!("tests/mesh_shader/shader.wgsl"),
+                file_path: "tests/mesh_shader/shader.wgsl",
+                ..Default::default()
+            })
+            .unwrap();
+
+        let info = composer.create_validator().validate(&module).unwrap();
+
+        #[allow(unused)]
+        let wgsl = naga::back::wgsl::write_string(
+            &module,
+            &info,
+            naga::back::wgsl::WriterFlags::EXPLICIT_TYPES,
+        )
+        .unwrap();
+
+        // println!("{}", wgsl);
+        // let mut f = std::fs::File::create("mesh_shader_compose.txt").unwrap();
+        // f.write_all(wgsl.as_bytes()).unwrap();
+        // drop(f);
+
+        assert!(module
+            .entry_points
+            .iter()
+            .any(|ep| ep.stage == naga::ShaderStage::Mesh));
     }
 
     #[test]
