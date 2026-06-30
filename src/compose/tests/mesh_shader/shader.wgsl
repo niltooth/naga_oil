@@ -1,3 +1,5 @@
+//wgpu example mesh shader
+//https://github.com/gfx-rs/wgpu/blob/v28.0.0/examples/features/src/mesh_shader/shader.wgsl
 enable wgpu_mesh_shader;
 
 const positions = array(

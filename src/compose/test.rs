@@ -82,15 +82,17 @@ mod test {
         )
         .unwrap();
 
-        // println!("{}", wgsl);
-        // let mut f = std::fs::File::create("mesh_shader_compose.txt").unwrap();
-        // f.write_all(wgsl.as_bytes()).unwrap();
-        // drop(f);
+        //println!("{}", wgsl);
+        //let mut f = std::fs::File::create("mesh_shader_compose.txt").unwrap();
+        //f.write_all(wgsl.as_bytes()).unwrap();
+        //drop(f);
 
         assert!(module
             .entry_points
             .iter()
             .any(|ep| ep.stage == naga::ShaderStage::Mesh));
+
+        output_eq!(wgsl, "tests/expected/mesh_shader_compose.txt");
     }
 
     #[test]
