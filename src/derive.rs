@@ -845,7 +845,7 @@ impl<'a> DerivedModule<'a> {
             };
             let span = func.local_variables.get_span(h_l);
             let new_h = local_variables.append(new_local, self.map_span(span));
-            assert_eq!(h_l, new_h)
+            assert_eq!(h_l, new_h);
         }
 
         let body = self.import_block(

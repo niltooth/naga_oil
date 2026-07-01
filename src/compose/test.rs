@@ -25,6 +25,7 @@ mod test {
             )
         };
     }
+
     #[test]
     fn simple_compose() {
         let mut composer = Composer::default();
